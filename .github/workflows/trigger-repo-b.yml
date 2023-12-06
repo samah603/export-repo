@@ -24,7 +24,7 @@ jobs:
 
       - name: Export Secrets
         run: |
-          echo "PERSONAL_TOKEN=${{ env.PERSONAL_TOKEN }}" >> exported-secrets.env
+          echo "PERSONAL_TOKEN=${{ secrets.PERSONAL_TOKEN }}" > exported-secrets.env
           # Repeat the above line for each secret
 
       - name: Upload Secrets

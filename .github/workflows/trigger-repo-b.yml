@@ -1,20 +1,27 @@
-name: Trigger Workflow in Another Repo
+name: Build and Deploy Workflow
 
 on:
-  workflow_dispatch:
-    inputs:
-      some_variable:
-        description: 'Some variable to pass'
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+env:
+  PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
+  BRANCH_NAME: develop
 
 jobs:
-  dispatch:
-    runs-on: ubuntu-latest
-
+  build:
+    name: Build
+    runs-on: [ubuntu-latest]
+    timeout-minutes: 30
+ 
     steps:
-      - name: Trigger workflow in another repo
+      - name: Repository Dispatch
+        if: ${{ github.event_name != 'pull_request' }}
         uses: peter-evans/repository-dispatch@v2
         with:
+          token: ${{ env.PERSONAL_TOKEN}}
           repository: samah603/import-repo
-          token: ${{ secrets.PERSONAL_TOKEN }}
-          event-type: trigger-event
-          client-payload: '{"some_variable": "${{ github.event.inputs.some_variable }}" }'
+          event-type: deploy
+          client-payload: '{"inputs" : {"branch": "${{ env.BRANCH_NAME }}" }}'

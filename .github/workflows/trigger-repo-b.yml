@@ -1,24 +1,20 @@
-name: Trigger Repo B Workflow
+name: Trigger Workflow in Another Repo
 
 on:
-  push:
-    branches:
-      - develop  # Adjust to your branch name
+  workflow_dispatch:
+    inputs:
+      some_variable:
+        description: 'Some variable to pass'
 
 jobs:
-  trigger_repo_b:
+  dispatch:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo A
-        uses: actions/checkout@v2
-
-      - name: Trigger Repo B Workflow
-        env:
-          REPO_B_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-        run: |
-          curl -X POST \
-            -H "Accept: application/vnd.github.everest-preview+json" \
-            -H "Authorization: Bearer $REPO_B_TOKEN" \
-            "https://api.github.com/repos/your-username/repo-b/dispatches" \
-            -d '{"event_type": "trigger-repo-b", "client_payload": {"branch": "develop", "additional_key": "additional_value"}}'
+      - name: Trigger workflow in another repo
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          repository: samah603/import-repo
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          event-type: trigger-event
+          client-payload: '{"some_variable": "${{ github.event.inputs.some_variable }}" }'

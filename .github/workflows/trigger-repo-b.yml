@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: exported-secrets
-          path: exported-secrets.env
+          path: path/to/artifact/exported-secrets.env
         
       - name: Repository Dispatch
         if: ${{ github.event_name != 'pull_request' }}

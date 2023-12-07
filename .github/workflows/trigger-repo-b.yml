@@ -8,9 +8,9 @@ on:
     
   workflow_dispatch:
 
-# env:
+env:
 #   PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
-#   BRANCH_NAME: develop
+  BRANCH_NAME: develop
 
 jobs:
   build:

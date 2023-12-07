@@ -15,28 +15,27 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: [ubuntu-latest]
-    timeout-minutes: 30
+    runs-on: ubuntu-latest
  
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # - name: Export Secrets
-      #   run: |
-      #     echo "PERSONAL_TOKEN=${{ secrets.PERSONAL_TOKEN }}" > exported-secrets.env
-      #     # Repeat the above line for each secret
+      - name: Export Secrets
+        run: |
+          echo "PERSONAL_TOKEN=${{ secrets.PERSONAL_TOKEN }}" > exported-secrets.env
+          # Repeat the above line for each secret
       #     mkdir -p /tmp/artifact && cd "$_"
 
-      # - name: Upload Secrets
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: exported-secrets
-      #     path: exported-secrets.env
+      - name: Upload Secrets
+        uses: actions/upload-artifact@v2
+        with:
+          name: exported-secrets
+          path: tmp/artifact/exported-secrets.env
 
-      # - name: Display structure of downloaded files
-      #   run: ls -R
-      #   working-directory: tmp/artifacts
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: tmp/artifact/
         
       - name: Repository Dispatch
         if: ${{ github.event_name != 'pull_request' }}

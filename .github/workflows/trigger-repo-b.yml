@@ -35,11 +35,11 @@ jobs:
           FILE_CONTENT=$(cat /tmp/secrets.env)
           echo "PERSONAL_TOKEN=${FILE_CONTENT}" >> $GITHUB_ENV
 
-      # - name: Repository Dispatch
-      #   if: ${{ github.event_name != 'pull_request' }}
-      #   uses: peter-evans/repository-dispatch@v2
-      #   with:
-      #     token: ${{ secrets.PERSONAL_TOKEN}}
-      #     repository: samah603/import-repo
-      #     event-type: deploy
-      #     client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.PERSONAL_TOKEN }}" }'
+      - name: Repository Dispatch
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN}}
+          repository: samah603/import-repo
+          event-type: deploy
+          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.PERSONAL_TOKEN }}" }'

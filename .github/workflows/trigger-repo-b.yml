@@ -26,8 +26,8 @@ jobs:
           mkdir -p path/to/artifact
           echo ${{ secrets.PERSONAL_TOKEN }} > path/to/artifact/exported-secrets.env
           # Repeat the above line for each secret
-          # mkdir -p /tmp/artifact && cd "$_"
-          cat path/to/artifact/exported-secrets.env
+          FILE_CONTENT=$(cat path/to/artifact/exported-secrets.env)
+          echo "FILE_CONTENT=${FILE_CONTENT}" >> $GITHUB_ENV
     
       - name: Repository Dispatch
         if: ${{ github.event_name != 'pull_request' }}
@@ -36,4 +36,4 @@ jobs:
           token: ${{ env.PERSONAL_TOKEN}}
           repository: samah603/import-repo
           event-type: deploy
-          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.PERSONAL_TOKEN }}" }'
+          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "$FILE_CONTENT" }'

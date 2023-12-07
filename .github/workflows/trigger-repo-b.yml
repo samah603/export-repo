@@ -36,4 +36,4 @@ jobs:
           token: ${{ env.PERSONAL_TOKEN}}
           repository: samah603/import-repo
           event-type: deploy
-          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "$FILE_CONTENT" }'
+          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.FILE_CONTENT }}" }'

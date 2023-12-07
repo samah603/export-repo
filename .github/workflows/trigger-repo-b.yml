@@ -24,7 +24,7 @@ jobs:
       - name: Export Secrets
         run: |
           mkdir -p path/to/artifact
-          echo "PERSONAL_TOKEN=${{ secrets.PERSONAL_TOKEN }}" > exported-secrets.env
+          echo "PERSONAL_TOKEN=${{ secrets.PERSONAL_TOKEN }}" > path/to/artifact/exported-secrets.env
           # Repeat the above line for each secret
           # mkdir -p /tmp/artifact && cd "$_"
 

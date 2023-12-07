@@ -10,7 +10,7 @@ on:
 
 env:
   PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
-  BRANCH_NAME: develop
+  BRANCH_NAME: main
 
 jobs:
   build:

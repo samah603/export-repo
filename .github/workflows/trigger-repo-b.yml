@@ -24,17 +24,11 @@ jobs:
       - name: Export Secrets
         run: |
           mkdir -p path/to/artifact
-          echo "PERSONAL_TOKEN=${{ secrets.PERSONAL_TOKEN }}" > path/to/artifact/exported-secrets.env
+          echo ${{ secrets.PERSONAL_TOKEN }} > path/to/artifact/exported-secrets.env
           # Repeat the above line for each secret
           # mkdir -p /tmp/artifact && cd "$_"
-
-      - name: Upload Secrets
-        uses: actions/upload-artifact@v3
-        with:
-          name: exported-secrets
-          path: path/to/artifact/exported-secrets.env
-          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
-        
+          cat path/to/artifact/exported-secrets.env
+    
       - name: Repository Dispatch
         if: ${{ github.event_name != 'pull_request' }}
         uses: peter-evans/repository-dispatch@v2

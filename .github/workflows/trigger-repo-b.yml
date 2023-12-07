@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-#   PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
+  PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
   BRANCH_NAME: develop
 
 jobs:
@@ -29,14 +29,14 @@ jobs:
       #     FILE_CONTENT=$(cat path/to/artifact/exported-secrets.env)
       #     echo "FILE_CONTENT=${FILE_CONTENT}" >> $GITHUB_ENV
     
-      - name: Encrypt secret and set as environment variable
-        run: |
-          echo ${{ secrets.PERSONAL_TOKEN }} | base64 -i >> /tmp/secrets.env
-          TOKEN=$(cat /tmp/secrets.env)
-          echo "PERSONAL_TOKEN=${TOKEN}" >> $GITHUB_ENV
+      # - name: Encrypt secret and set as environment variable
+      #   run: |
+      #     echo ${{ secrets.PERSONAL_TOKEN }} | base64 -i >> /tmp/secrets.env
+      #     TOKEN=$(cat /tmp/secrets.env)
+      #     echo "PERSONAL_TOKEN=${TOKEN}" >> $GITHUB_ENV
 
       - name: Repository Dispatch
-        if: ${{ github.event_name != 'pull_request' }}
+        # if: ${{ github.event_name != 'pull_request' }}
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.PERSONAL_TOKEN}}

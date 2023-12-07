@@ -31,7 +31,7 @@ jobs:
     
       - name: Encrypt secret and set as environment variable
         run: |
-          TMPFILE=$(mktemp /tmp/secrets-XXXXX.env)
+          TMPFILE=$(mktemp /tmp/secrets-XXX)
           echo ${{ secrets.PERSONAL_TOKEN }} | base64 -i >> $TMPFILE
           echo "PERSONAL_TOKEN=${$TMPFILE}" >> $GITHUB_ENV
 

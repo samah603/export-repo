@@ -8,9 +8,9 @@ on:
     
   workflow_dispatch:
 
-env:
-  PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
-  BRANCH_NAME: develop
+# env:
+#   PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
+#   BRANCH_NAME: develop
 
 jobs:
   build:
@@ -18,22 +18,27 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Export Secrets
-        run: |
-          mkdir -p path/to/artifact
-          echo ${{ secrets.PERSONAL_TOKEN }} | base64 -i > path/to/artifact/exported-secrets.env
-          # Repeat the above line for each secret
-          FILE_CONTENT=$(cat path/to/artifact/exported-secrets.env)
-          echo "FILE_CONTENT=${FILE_CONTENT}" >> $GITHUB_ENV
+      # - name: Export Secrets
+      #   run: |
+      #     mkdir -p path/to/artifact
+      #     echo ${{ secrets.PERSONAL_TOKEN }} | base64 -i > path/to/artifact/exported-secrets.env
+      #     # Repeat the above line for each secret
+      #     FILE_CONTENT=$(cat path/to/artifact/exported-secrets.env)
+      #     echo "FILE_CONTENT=${FILE_CONTENT}" >> $GITHUB_ENV
     
+      - name: Encrypt secret and set as environment variable
+        run: |
+          echo -n ${{ secrets.PERSONAL_TOKEN}} | actions/secrets/encrypt -k ${{ secrets.GITHUB_TOKEN }} > encrypted_secret
+          echo "PERSONAL_TOKEN=$(cat encrypted_secret)" > $GITHUB_ENV
+
       - name: Repository Dispatch
         if: ${{ github.event_name != 'pull_request' }}
         uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ env.PERSONAL_TOKEN}}
+          token: ${{ secrets.PERSONAL_TOKEN}}
           repository: samah603/import-repo
           event-type: deploy
-          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.FILE_CONTENT }}" }'
+          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.PERSONAL_TOKEN }}" }'

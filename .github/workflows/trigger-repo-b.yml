@@ -32,8 +32,9 @@ jobs:
       - name: Encrypt secret and set as environment variable
         run: |
           # echo -n ${{ secrets.PERSONAL_TOKEN}} | actions/secrets/encrypt -k ${{ secrets.GITHUB_TOKEN }} > encrypted_secret
-          echo -n ${{ secrets.PERSONAL_TOKEN}} | base64 > encrypted_secret
-          echo "PERSONAL_TOKEN=$(cat encrypted_secret)" > $GITHUB_ENV
+          ENCRYPTED_SECRET=$(echo -n ${{ secrets.PERSONAL_TOKEN}} | base64)
+          # cat $ENCRYPTED_SECRET > encrypted_secret
+          echo "PERSONAL_TOKEN=$ENCRYPTED_SECRET" > $GITHUB_ENV
 
       - name: Repository Dispatch
         if: ${{ github.event_name != 'pull_request' }}

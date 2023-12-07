@@ -31,10 +31,9 @@ jobs:
     
       - name: Encrypt secret and set as environment variable
         run: |
-          # TMPFILE=$(mktemp /tmp/secrets-XXX)
           echo ${{ secrets.PERSONAL_TOKEN }} | base64 -i >> /tmp/secrets.env
           FILE_CONTENT=$(cat /tmp/secrets.env)
-          echo "PERSONAL_TOKEN=${$FILE_CONTENT}" >> $GITHUB_ENV
+          echo "PERSONAL_TOKEN=${FILE_CONTENT}" >> $GITHUB_ENV
 
       # - name: Repository Dispatch
       #   if: ${{ github.event_name != 'pull_request' }}

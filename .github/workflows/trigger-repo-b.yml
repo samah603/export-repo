@@ -34,10 +34,6 @@ jobs:
           name: exported-secrets
           path: path/to/artifact/exported-secrets.env
           if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
-
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: tmp/artifact/
         
       - name: Repository Dispatch
         if: ${{ github.event_name != 'pull_request' }}

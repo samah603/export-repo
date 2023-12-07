@@ -35,13 +35,11 @@ jobs:
           echo -n ${{ secrets.PERSONAL_TOKEN}} | base64 > encrypted_secret
           echo "PERSONAL_TOKEN=$(cat encrypted_secret)" > $GITHUB_ENV
 
-
-
-      # - name: Repository Dispatch
-      #   if: ${{ github.event_name != 'pull_request' }}
-      #   uses: peter-evans/repository-dispatch@v2
-      #   with:
-      #     token: ${{ secrets.PERSONAL_TOKEN}}
-      #     repository: samah603/import-repo
-      #     event-type: deploy
-      #     client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.PERSONAL_TOKEN }}" }'
+      - name: Repository Dispatch
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN}}
+          repository: samah603/import-repo
+          event-type: deploy
+          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.PERSONAL_TOKEN }}" }'

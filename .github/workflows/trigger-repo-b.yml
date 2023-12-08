@@ -1,12 +1,11 @@
 name: Build and Deploy Workflow
 
 on:
+  workflow_dispatch:
   push:
     branches: [ develop ]
-  pull_request:
+  pull_request: 
     branches: [ develop ]
-    
-  workflow_dispatch:
 
 env:
   PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
@@ -20,20 +19,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-
-      # - name: Export Secrets
-      #   run: |
-      #     mkdir -p path/to/artifact
-      #     echo ${{ secrets.PERSONAL_TOKEN }} | base64 -i > path/to/artifact/exported-secrets.env
-      #     # Repeat the above line for each secret
-      #     FILE_CONTENT=$(cat path/to/artifact/exported-secrets.env)
-      #     echo "FILE_CONTENT=${FILE_CONTENT}" >> $GITHUB_ENV
-    
-      # - name: Encrypt secret and set as environment variable
-      #   run: |
-      #     echo ${{ secrets.PERSONAL_TOKEN }} | base64 -i >> /tmp/secrets.env
-      #     TOKEN=$(cat /tmp/secrets.env)
-      #     echo "PERSONAL_TOKEN=${TOKEN}" >> $GITHUB_ENV
 
       - name: Repository Dispatch
         # if: ${{ github.event_name != 'pull_request' }}

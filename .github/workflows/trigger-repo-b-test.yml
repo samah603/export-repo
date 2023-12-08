@@ -1,12 +1,11 @@
-name: Build and Test Workflow
+name: CI
 
 on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
   workflow_dispatch:
-  # push:
-  #   branches: [ develop ]
-  # pull_request: 
-  #   branches: [ develop ]
-
 env:
   PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
   BRANCH_NAME: main

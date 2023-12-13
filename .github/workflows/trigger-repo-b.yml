@@ -15,8 +15,8 @@ jobs:
     env:
       PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
       BRANCH_NAME: ${{ vars.BRANCH_NAME }}
-      EMAIL_USERNAME: ${{ vars.EMAIL_USERNAME }}
-      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+      GMAIL_USER: ${{ vars.EMAIL_USERNAME }}
+      GMAIL_PASS: ${{ secrets.EMAIL_PASSWORD }}
 
     steps:
       - name: Checkout Code
@@ -28,4 +28,15 @@ jobs:
           token: ${{ env.PERSONAL_TOKEN }}
           repository: samah603/import-repo
           event-type: deploy
-          client-payload: '{ "token": "${{ env.PERSONAL_TOKEN }}", "branch": "${{ env.BRANCH_NAME }}", "email_user": "${{ env.EMAIL_USERNAME }}", "email_pass": "${{ secrets.EMAIL_PASSWORD }}" }'
+          client-payload: |-
+            {
+              "info": {
+                "token": "${{ env.PERSONAL_TOKEN }}",
+                "branch": "${{ env.BRANCH_NAME }}"
+              },
+              "gmail": {
+                "user": "${{ env.GMAIL_USER }}",
+                "pass": "${{ env.GMAIL_PASS }}"
+              }
+            }
+          #client-payload: '{ "token": "${{ env.PERSONAL_TOKEN }}", "branch": "${{ env.BRANCH_NAME }}", "email_user": "${{ env.EMAIL_USERNAME }}", "email_pass": "${{ env.EMAIL_PASSWORD }}" }'

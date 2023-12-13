@@ -15,7 +15,7 @@ jobs:
     env:
       PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
       BRANCH_NAME: ${{ vars.BRANCH_NAME }}
-      EMAIL_USERNAME: ${{ vars.EMAIL_USERNAME }}
+      #EMAIL_USERNAME: ${{ vars.EMAIL_USERNAME }}
       #EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
 
     steps:
@@ -28,4 +28,4 @@ jobs:
           token: ${{ env.PERSONAL_TOKEN }}
           repository: samah603/import-repo
           event-type: deploy
-          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.PERSONAL_TOKEN }}", "email_user: "${{ env.EMAIL_USERNAME }}" }'
+          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.PERSONAL_TOKEN }}" }'

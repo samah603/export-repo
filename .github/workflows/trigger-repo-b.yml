@@ -10,7 +10,7 @@ env:
   PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
   BRANCH_NAME: ${{ vars.BRANCH_NAME }}
   EMAIL_USERNAME: ${{ vars.EMAIL_USERNAME }}
-  EMAIL_PASSWORD: ${{ secrets.PERSONAL_TOKEN }}
+  EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
 
 jobs:
   build:

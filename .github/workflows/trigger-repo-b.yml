@@ -6,19 +6,18 @@ on:
     branches:
       - develop
 
-env:
-  PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-  BRANCH_NAME: ${{ vars.BRANCH_NAME }}
-  EMAIL_USERNAME: ${{ vars.EMAIL_USERNAME }}
-  #EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     environment:
      name: automate
- 
+    env:
+      PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+      BRANCH_NAME: ${{ vars.BRANCH_NAME }}
+      EMAIL_USERNAME: ${{ vars.EMAIL_USERNAME }}
+      #EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -26,7 +25,7 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.PERSONAL_TOKEN }}
+          token: ${{ env.PERSONAL_TOKEN }}
           repository: samah603/import-repo
           event-type: deploy
           client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.PERSONAL_TOKEN }}", "email_user: "${{ env.EMAIL_USERNAME }}" }'

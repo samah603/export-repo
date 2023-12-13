@@ -7,10 +7,10 @@ on:
       - develop
 
 env:
-  PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
-  BRANCH_NAME: ${{ vars.BRANCH_NAME}}
-  EMAIL_USERNAME: ${{ vars.EMAIL_USERNAME}}
-  EMAIL_PASSWORD: ${{ secrets.PERSONAL_TOKEN}}
+  PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+  BRANCH_NAME: ${{ vars.BRANCH_NAME }}
+  EMAIL_USERNAME: ${{ vars.EMAIL_USERNAME }}
+  EMAIL_PASSWORD: ${{ secrets.PERSONAL_TOKEN }}
 
 jobs:
   build:
@@ -26,7 +26,7 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.PERSONAL_TOKEN}}
+          token: ${{ secrets.PERSONAL_TOKEN }}
           repository: samah603/import-repo
           event-type: deploy
-          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.PERSONAL_TOKEN }}", "email_user: "${{ env.EMAIL_USERNAME }}" , "email_pass: "${{ env.EMAIL_PASSWORD }}" }'
+          client-payload: '{ "branch": "${{ env.BRANCH_NAME }}", "token": "${{ env.PERSONAL_TOKEN }}", "email_user: "${{ env.EMAIL_USERNAME }}", "email_pass: "${{ env.EMAIL_PASSWORD }}" }'

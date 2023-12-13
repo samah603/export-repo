@@ -17,7 +17,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     environment:
-     - name: automate
+     name: automate
  
     steps:
       - name: Checkout Code
